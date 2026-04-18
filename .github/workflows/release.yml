@@ -1,0 +1,63 @@
+name: Release
+
+# Publishes plainfp to npm using OIDC trusted publishing with provenance.
+# No NPM_TOKEN secret required — configure the trusted publisher on npmjs.com
+# (Package settings → Publishing access) and point it at this workflow.
+#
+# To cut a release, run locally from the repo root:
+#   pnpm release
+#
+# That invokes changelogen in packages/plainfp, which bumps the version,
+# updates CHANGELOG.md, commits, tags (v0.1.0), and pushes. The pushed tag
+# fires this workflow.
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  publish:
+    name: Publish to npm
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write # required for npm provenance via OIDC
+      contents: write # for creating the GitHub Release below
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320 # v5.0.0
+
+      - uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
+        with:
+          node-version: 25
+          cache: pnpm
+          registry-url: https://registry.npmjs.org
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Verify tag matches package.json version
+        working-directory: packages/plainfp
+        run: |
+          TAG_VERSION="${GITHUB_REF_NAME#v}"
+          PKG_VERSION="$(node -p "require('./package.json').version")"
+          if [ "$TAG_VERSION" != "$PKG_VERSION" ]; then
+            echo "Tag v$TAG_VERSION does not match package.json version $PKG_VERSION" >&2
+            exit 1
+          fi
+
+      - run: pnpm -r run typecheck
+      - run: pnpm -r run lint
+      - run: pnpm -r run test
+      - run: pnpm -r run build
+      - run: pnpm --filter plainfp dlx publint
+
+      - name: Publish with provenance
+        working-directory: packages/plainfp
+        run: pnpm publish --provenance --access public --no-git-checks
+
+      - name: Create GitHub Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        working-directory: packages/plainfp
+        run: pnpm dlx changelogen@0.6.2 gh release

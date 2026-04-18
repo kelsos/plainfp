@@ -1,0 +1,51 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+packages/*/dist/
+
+# Test + bench output
+coverage/
+packages/*/coverage/
+.vitest/
+.codspeed/
+
+# Vite / vite-plus caches
+.vite/
+.vite-plus/
+packages/*/.vite/
+packages/*/.vite-plus/
+
+# TypeScript build info
+*.tsbuildinfo
+packages/*/*.tsbuildinfo
+
+# Git hooks (managed by `vp config` — don't commit local installs)
+.vite-hooks/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Editor / OS
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+*.swp
+*~
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Misc
+.turbo/
+.cache/

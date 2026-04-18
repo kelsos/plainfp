@@ -1,0 +1,53 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended",
+    "helpers:pinGitHubActionDigests",
+    ":semanticCommits",
+    ":dependencyDashboard"
+  ],
+  "timezone": "Europe/Athens",
+  "schedule": ["before 6am on monday"],
+  "labels": ["dependencies"],
+  "rangeStrategy": "bump",
+  "lockFileMaintenance": {
+    "enabled": true,
+    "schedule": ["before 6am on monday"]
+  },
+  "packageRules": [
+    {
+      "matchManagers": ["github-actions"],
+      "groupName": "github-actions",
+      "pinDigests": true,
+      "extends": ["helpers:pinGitHubActionDigests"]
+    },
+    {
+      "matchDepTypes": ["devDependencies"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "devDependencies (non-major)"
+    },
+    {
+      "matchPackageNames": [
+        "vite-plus",
+        "@voidzero-dev/vite-plus-core",
+        "@voidzero-dev/vite-plus-test"
+      ],
+      "groupName": "vite-plus",
+      "rangeStrategy": "pin"
+    },
+    {
+      "matchPackageNames": ["typescript"],
+      "rangeStrategy": "bump",
+      "separateMinorPatch": true
+    },
+    {
+      "matchPackageNames": ["zod"],
+      "matchDepTypes": ["peerDependencies"],
+      "enabled": false
+    }
+  ],
+  "vulnerabilityAlerts": {
+    "enabled": true,
+    "labels": ["security"]
+  }
+}

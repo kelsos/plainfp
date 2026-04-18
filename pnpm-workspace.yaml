@@ -1,0 +1,59 @@
+packages:
+  - "packages/*"
+
+# ── Supply-chain hardening ──────────────────────────────────────────────
+# Block packages published less than 7 days ago. The chalk/debug-class
+# attacks are typically caught and pulled within hours to days.
+minimumReleaseAge: 10080
+minimumReleaseAgeExclude:
+  # vite-plus meta-package + platform binaries (we've committed to this stack)
+  - "@voidzero-dev/*"
+  - "vite-plus"
+  # vite-plus bundles these — allowlisting the stack we've already accepted
+  - "oxlint"
+  - "oxfmt"
+  - "@oxlint/*"
+  - "@oxfmt/*"
+  - "@oxc-project/*"
+  - "rolldown"
+  - "@rolldown/*"
+  - "tsdown"
+  - "lint-staged"
+  # Microsoft-published, extremely high trust + wide deployment
+  - "typescript"
+  - "@types/*"
+  # CodSpeed (benchmarking under Valgrind) — scope we've vetted
+  - "@codspeed/*"
+
+# Refuse to install a dep that lost its trusted-publisher / provenance
+# signal between releases (pnpm 10.21+).
+trustPolicy: no-downgrade
+
+# Block git://, http(s)://, and tarball: sub-dependencies.
+blockExoticSubdeps: true
+
+# Hard-fail (not warn) if any dep tries to run a build script.
+# With no native deps, nothing should.
+strictDepBuilds: true
+
+# Never run lifecycle scripts unless explicitly allowlisted.
+ignoreScripts: true
+
+# Exact resolutions on every install (no silent caret upgrades).
+saveExact: true
+
+# CI-style lockfile consistency: fail if lockfile drifts from package.json.
+preferFrozenLockfile: true
+
+# Don't auto-install peer deps — keep the graph explicit.
+autoInstallPeers: false
+
+# Retry transient registry errors.
+fetchRetries: 3
+
+# ── vite-plus version alignment ─────────────────────────────────────────
+# vite-plus aliases `vite` and `vitest` to its own builds; this makes
+# every transitive dep resolve to the aliased packages.
+overrides:
+  vite: "npm:@voidzero-dev/vite-plus-core@0.1.18"
+  vitest: "npm:@voidzero-dev/vite-plus-test@0.1.18"
