@@ -73,3 +73,65 @@ export function filter<T>(
   const p = predicate as (value: T) => boolean;
   return optionOrPred.some && p(optionOrPred.value) ? optionOrPred : none;
 }
+
+/**
+ * Run a side effect on the value inside a {@link Some}; the option flows
+ * through unchanged. {@link none} is ignored. Useful for logging, metrics,
+ * or debugging inside a `pipe`.
+ *
+ * Dual API — works data-first or curried for use in `pipe`.
+ *
+ * @example
+ *   pipe(
+ *     findUser(id),
+ *     Option.tap(user => logger.debug("loaded", user.id)),
+ *     Option.map(user => user.name),
+ *   )
+ */
+export function tap<T>(option: Option<T>, fn: (value: T) => void): Option<T>;
+export function tap<T>(fn: (value: T) => void): (option: Option<T>) => Option<T>;
+export function tap<T>(
+  optionOrFn: Option<T> | ((value: T) => void),
+  fn?: (value: T) => void,
+): Option<T> | ((option: Option<T>) => Option<T>) {
+  if (typeof optionOrFn === "function") {
+    const f = optionOrFn;
+    return (option: Option<T>) => {
+      if (option.some) f(option.value);
+      return option;
+    };
+  }
+  const f = fn as (value: T) => void;
+  if (optionOrFn.some) f(optionOrFn.value);
+  return optionOrFn;
+}
+
+/**
+ * Run a side effect when the option is {@link none}; the option flows
+ * through unchanged. The effect receives no arguments.
+ *
+ * Dual API — works data-first or curried for use in `pipe`.
+ *
+ * @example
+ *   pipe(
+ *     findUser(id),
+ *     Option.tapNone(() => logger.warn("user not found", { id })),
+ *   )
+ */
+export function tapNone<T>(option: Option<T>, fn: () => void): Option<T>;
+export function tapNone<T>(fn: () => void): (option: Option<T>) => Option<T>;
+export function tapNone<T>(
+  optionOrFn: Option<T> | (() => void),
+  fn?: () => void,
+): Option<T> | ((option: Option<T>) => Option<T>) {
+  if (typeof optionOrFn === "function") {
+    const f = optionOrFn;
+    return (option: Option<T>) => {
+      if (!option.some) f();
+      return option;
+    };
+  }
+  const f = fn as () => void;
+  if (!optionOrFn.some) f();
+  return optionOrFn;
+}

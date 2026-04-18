@@ -87,3 +87,65 @@ export function flatMap<T, E, U, F>(
   const f = fn as (value: T) => Result<U, F>;
   return resultOrFn.ok ? f(resultOrFn.value) : resultOrFn;
 }
+
+/**
+ * Run a side effect on the success value without altering the result. The
+ * original `ok` or `err` flows through unchanged — useful for logging,
+ * metrics, or debugging inside a `pipe`.
+ *
+ * Dual API — works data-first or curried for use in `pipe`.
+ *
+ * @example
+ *   pipe(
+ *     parseOrder(raw),
+ *     Result.tap(order => logger.info("parsed", order.id)),
+ *     Result.flatMap(chargePayment),
+ *   )
+ */
+export function tap<T, E>(result: Result<T, E>, fn: (value: T) => void): Result<T, E>;
+export function tap<T>(fn: (value: T) => void): <E>(result: Result<T, E>) => Result<T, E>;
+export function tap<T, E>(
+  resultOrFn: Result<T, E> | ((value: T) => void),
+  fn?: (value: T) => void,
+): Result<T, E> | ((result: Result<T, E>) => Result<T, E>) {
+  if (typeof resultOrFn === "function") {
+    const f = resultOrFn;
+    return (result: Result<T, E>) => {
+      if (result.ok) f(result.value);
+      return result;
+    };
+  }
+  const f = fn as (value: T) => void;
+  if (resultOrFn.ok) f(resultOrFn.value);
+  return resultOrFn;
+}
+
+/**
+ * Run a side effect on the error without altering the result. Useful for
+ * logging failures inside a `pipe` without interrupting downstream steps.
+ *
+ * Dual API — works data-first or curried for use in `pipe`.
+ *
+ * @example
+ *   pipe(
+ *     validateEmail(input),
+ *     Result.tapError(e => logger.warn("validation failed", e)),
+ *   )
+ */
+export function tapError<T, E>(result: Result<T, E>, fn: (error: E) => void): Result<T, E>;
+export function tapError<E>(fn: (error: E) => void): <T>(result: Result<T, E>) => Result<T, E>;
+export function tapError<T, E>(
+  resultOrFn: Result<T, E> | ((error: E) => void),
+  fn?: (error: E) => void,
+): Result<T, E> | ((result: Result<T, E>) => Result<T, E>) {
+  if (typeof resultOrFn === "function") {
+    const f = resultOrFn;
+    return (result: Result<T, E>) => {
+      if (!result.ok) f(result.error);
+      return result;
+    };
+  }
+  const f = fn as (error: E) => void;
+  if (!resultOrFn.ok) f(resultOrFn.error);
+  return resultOrFn;
+}
