@@ -8,6 +8,19 @@ import type { ResultAsync } from "./types.ts";
 // `Function`/`object` split.
 const isFn = (x: object | Function): x is Function => typeof x === "function";
 
+/**
+ * Transform the success value of a {@link ResultAsync}. `fn` may return a
+ * value or a `Promise`. Errors short-circuit: on `err`, `fn` is not called
+ * and the error propagates unchanged.
+ *
+ * Dual API — works data-first or curried for use in `pipe`.
+ *
+ * @example
+ *   pipe(
+ *     fetchUser(id),
+ *     ResultAsync.map(user => ({ ...user, name: user.name.trim() })),
+ *   )
+ */
 export function map<T, E, U>(
   ra: ResultAsync<T, E>,
   fn: (value: T) => U | Promise<U>,
@@ -30,6 +43,18 @@ export function map<T, E, U>(
   return run(raOrFn, fn as (value: T) => U | Promise<U>);
 }
 
+/**
+ * Transform the error channel of a {@link ResultAsync}. `fn` may return a
+ * value or a `Promise`. Success values pass through untouched.
+ *
+ * Dual API — works data-first or curried for use in `pipe`.
+ *
+ * @example
+ *   pipe(
+ *     fetchUser(id),
+ *     ResultAsync.mapError(cause => ({ code: "USER_LOAD_FAILED", cause })),
+ *   )
+ */
 export function mapError<T, E, F>(
   ra: ResultAsync<T, E>,
   fn: (error: E) => F | Promise<F>,
@@ -49,6 +74,20 @@ export function mapError<T, E, F>(
   return run(raOrFn, fn as (error: E) => F | Promise<F>);
 }
 
+/**
+ * Chain a {@link ResultAsync}-producing step. If the input resolves to `err`,
+ * `fn` is skipped; otherwise `fn` runs and its result becomes the output.
+ * Error channels are unioned.
+ *
+ * Dual API — works data-first or curried for use in `pipe`.
+ *
+ * @example
+ *   pipe(
+ *     fetchUser(userId),
+ *     ResultAsync.flatMap(user => fetchOrders(user.id)),
+ *     ResultAsync.flatMap(orders => chargeBatch(orders)),
+ *   )
+ */
 export function flatMap<T, E, U, F>(
   ra: ResultAsync<T, E>,
   fn: (value: T) => ResultAsync<U, F>,
@@ -68,6 +107,19 @@ export function flatMap<T, E, U, F>(
   return run(raOrFn, fn as (value: T) => ResultAsync<U, F>);
 }
 
+/**
+ * Run a side effect on the success value without altering the result. The
+ * side effect is awaited if it returns a `Promise`. The original `ok` or
+ * `err` flows through unchanged.
+ *
+ * Dual API — works data-first or curried for use in `pipe`.
+ *
+ * @example
+ *   pipe(
+ *     fetchOrder(id),
+ *     ResultAsync.tap(order => logger.info("loaded", order.id)),
+ *   )
+ */
 export function tap<T, E>(
   ra: ResultAsync<T, E>,
   fn: (value: T) => void | Promise<void>,
@@ -88,6 +140,18 @@ export function tap<T, E>(
   return run(raOrFn, fn as (value: T) => void | Promise<void>);
 }
 
+/**
+ * Run a side effect on the error without altering the result. Useful for
+ * logging failures without interrupting the pipeline.
+ *
+ * Dual API — works data-first or curried for use in `pipe`.
+ *
+ * @example
+ *   pipe(
+ *     chargeCard(order),
+ *     ResultAsync.tapError(e => logger.error("charge failed", e)),
+ *   )
+ */
 export function tapError<T, E>(
   ra: ResultAsync<T, E>,
   fn: (error: E) => void | Promise<void>,

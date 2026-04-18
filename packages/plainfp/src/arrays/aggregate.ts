@@ -1,6 +1,17 @@
 import { none, some } from "../option/constructors.ts";
 import type { Option } from "../option/types.ts";
 
+/**
+ * Sum the numeric projection of each element. Empty input returns `0`.
+ *
+ * Dual API — works data-first or curried for use in `pipe`.
+ *
+ * @example
+ *   pipe(
+ *     orders,
+ *     Arrays.sumBy((o) => o.total),
+ *   )
+ */
 export function sumBy<T>(xs: ReadonlyArray<T>, fn: (x: T) => number): number;
 export function sumBy<T>(fn: (x: T) => number): (xs: ReadonlyArray<T>) => number;
 export function sumBy<T>(
@@ -16,6 +27,18 @@ export function sumBy<T>(
   return run(xsOrFn, fn as (x: T) => number);
 }
 
+/**
+ * Tally elements by key. Key collisions increment the same bucket.
+ *
+ * Dual API — works data-first or curried for use in `pipe`.
+ *
+ * @example
+ *   pipe(
+ *     events,
+ *     Arrays.countBy((e) => e.type),
+ *   )
+ *   // { click: 12, view: 48 }
+ */
 export function countBy<T, K extends PropertyKey>(
   xs: ReadonlyArray<T>,
   keyFn: (x: T) => K,
@@ -39,6 +62,18 @@ export function countBy<T, K extends PropertyKey>(
   return run(xsOrFn, keyFn as (x: T) => K);
 }
 
+/**
+ * Find the element whose numeric projection is smallest. Returns `none`
+ * on empty input. Ties resolve to the earlier element.
+ *
+ * Dual API — works data-first or curried for use in `pipe`.
+ *
+ * @example
+ *   pipe(
+ *     products,
+ *     Arrays.minBy((p) => p.price),
+ *   )
+ */
 export function minBy<T>(xs: ReadonlyArray<T>, fn: (x: T) => number): Option<T>;
 export function minBy<T>(fn: (x: T) => number): (xs: ReadonlyArray<T>) => Option<T>;
 export function minBy<T>(
@@ -63,6 +98,18 @@ export function minBy<T>(
   return run(xsOrFn, fn as (x: T) => number);
 }
 
+/**
+ * Find the element whose numeric projection is largest. Returns `none`
+ * on empty input. Ties resolve to the earlier element.
+ *
+ * Dual API — works data-first or curried for use in `pipe`.
+ *
+ * @example
+ *   pipe(
+ *     products,
+ *     Arrays.maxBy((p) => p.price),
+ *   )
+ */
 export function maxBy<T>(xs: ReadonlyArray<T>, fn: (x: T) => number): Option<T>;
 export function maxBy<T>(fn: (x: T) => number): (xs: ReadonlyArray<T>) => Option<T>;
 export function maxBy<T>(

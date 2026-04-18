@@ -1,0 +1,38 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "name": "plainfp",
+  "includeVersion": true,
+  "entryPoints": [
+    "src/index.ts",
+    "src/pipe.ts",
+    "src/result/index.ts",
+    "src/result-async/index.ts",
+    "src/option/index.ts",
+    "src/arrays/index.ts",
+    "src/records/index.ts",
+    "src/strings/index.ts",
+    "src/predicates/index.ts",
+    "src/functions/index.ts",
+    "src/brand/index.ts",
+    "src/non-empty-array/index.ts",
+    "src/tagged/index.ts",
+    "src/interop/zod/index.ts"
+  ],
+  "out": "docs/api",
+  "tsconfig": "tsconfig.json",
+  "readme": "README.md",
+  "excludePrivate": true,
+  "excludeInternal": true,
+  "excludeExternals": true,
+  "categorizeByGroup": true,
+  "navigationLinks": {
+    "GitHub": "https://github.com/kelsos/plainfp",
+    "npm": "https://www.npmjs.com/package/plainfp"
+  },
+  "validation": {
+    "notExported": true,
+    "invalidLink": true,
+    "notDocumented": false
+  },
+  "treatWarningsAsErrors": false
+}

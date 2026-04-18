@@ -1,3 +1,16 @@
+/**
+ * Transform each value; keys are preserved. Only own enumerable entries
+ * are visited.
+ *
+ * Dual API — works data-first or curried for use in `pipe`.
+ *
+ * @example
+ *   pipe(
+ *     { a: 1, b: 2 },
+ *     Records.mapValues((n) => n * 10),
+ *   )
+ *   // { a: 10, b: 20 }
+ */
 export function mapValues<K extends PropertyKey, V, U>(
   record: Readonly<Record<K, V>>,
   fn: (value: V, key: K) => U,
@@ -22,6 +35,19 @@ export function mapValues<K extends PropertyKey, V, U>(
   return run(recordOrFn, fn as (value: V, key: K) => U);
 }
 
+/**
+ * Rewrite each key via `fn`; values are preserved. If `fn` produces the
+ * same key for multiple entries the later one wins (iteration order).
+ *
+ * Dual API — works data-first or curried for use in `pipe`.
+ *
+ * @example
+ *   pipe(
+ *     { firstName: "Ada", lastName: "Lovelace" },
+ *     Records.mapKeys((k) => k.toUpperCase()),
+ *   )
+ *   // { FIRSTNAME: "Ada", LASTNAME: "Lovelace" }
+ */
 export function mapKeys<K extends PropertyKey, V, K2 extends PropertyKey>(
   record: Readonly<Record<K, V>>,
   fn: (key: K, value: V) => K2,
@@ -46,6 +72,19 @@ export function mapKeys<K extends PropertyKey, V, K2 extends PropertyKey>(
   return run(recordOrFn, fn as (key: K, value: V) => K2);
 }
 
+/**
+ * Keep only entries for which `predicate` returns `true`. Result is typed
+ * `Partial` since keys may be absent.
+ *
+ * Dual API — works data-first or curried for use in `pipe`.
+ *
+ * @example
+ *   pipe(
+ *     { a: 1, b: 2, c: 3 },
+ *     Records.filter((v) => v % 2 === 1),
+ *   )
+ *   // { a: 1, c: 3 }
+ */
 export function filter<K extends PropertyKey, V>(
   record: Readonly<Record<K, V>>,
   predicate: (value: V, key: K) => boolean,

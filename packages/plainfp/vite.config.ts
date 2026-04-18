@@ -65,7 +65,9 @@ export default defineConfig({
     },
   },
   lint: {
-    ignorePatterns: ["dist/**", "node_modules/**"],
+    ignorePatterns: ["dist/**", "node_modules/**", "docs/api/**"],
   },
-  fmt: {},
+  fmt: {
+    ignorePatterns: ["dist/**", "node_modules/**", "docs/api/**"],
+  },
 });

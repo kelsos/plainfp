@@ -1,5 +1,25 @@
+/**
+ * Drop duplicates using SameValueZero equality (so `NaN` equals `NaN` and
+ * `+0` equals `-0`). First occurrence wins; order preserved.
+ *
+ * @example
+ *   unique([1, 2, 2, 3, 1])
+ *   // [1, 2, 3]
+ */
 export const unique = <T>(xs: ReadonlyArray<T>): T[] => [...new Set(xs)];
 
+/**
+ * Drop duplicates compared by projected key. Keys use `Set`/SameValueZero
+ * semantics. First occurrence per key wins; order preserved.
+ *
+ * Dual API — works data-first or curried for use in `pipe`.
+ *
+ * @example
+ *   pipe(
+ *     users,
+ *     Arrays.uniqueBy((u) => u.email),
+ *   )
+ */
 export function uniqueBy<T, K>(xs: ReadonlyArray<T>, keyFn: (x: T) => K): T[];
 export function uniqueBy<T, K>(keyFn: (x: T) => K): (xs: ReadonlyArray<T>) => T[];
 export function uniqueBy<T, K>(

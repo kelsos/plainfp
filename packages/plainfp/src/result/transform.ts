@@ -1,6 +1,20 @@
 import { err, ok } from "./constructors.ts";
 import type { Result } from "./types.ts";
 
+/**
+ * Transform the success value of a {@link Result}. Errors short-circuit:
+ * if the input is `err`, `fn` is not called and the error is propagated
+ * unchanged.
+ *
+ * Dual API — works data-first or curried for use in `pipe`.
+ *
+ * @example
+ *   pipe(
+ *     ok({ id: "u-1", name: "Alice" }),
+ *     Result.map(user => user.name.toUpperCase()),
+ *   )
+ *   // { ok: true, value: "ALICE" }
+ */
 export function map<T, E, U>(result: Result<T, E>, fn: (value: T) => U): Result<U, E>;
 export function map<T, U>(fn: (value: T) => U): <E>(result: Result<T, E>) => Result<U, E>;
 export function map<T, E, U>(
@@ -15,6 +29,18 @@ export function map<T, E, U>(
   return resultOrFn.ok ? ok(f(resultOrFn.value)) : resultOrFn;
 }
 
+/**
+ * Transform the error channel of a {@link Result}. Success values pass through
+ * untouched. Useful for translating low-level errors into domain errors.
+ *
+ * Dual API — works data-first or curried for use in `pipe`.
+ *
+ * @example
+ *   pipe(
+ *     parseOrder(raw),
+ *     Result.mapError(e => ({ code: "BAD_ORDER", cause: e })),
+ *   )
+ */
 export function mapError<T, E, F>(result: Result<T, E>, fn: (error: E) => F): Result<T, F>;
 export function mapError<E, F>(fn: (error: E) => F): <T>(result: Result<T, E>) => Result<T, F>;
 export function mapError<T, E, F>(
@@ -29,6 +55,20 @@ export function mapError<T, E, F>(
   return resultOrFn.ok ? resultOrFn : err(f(resultOrFn.error));
 }
 
+/**
+ * Chain a {@link Result}-producing step. If the input is `err`, `fn` is
+ * skipped; otherwise `fn` runs and its result (possibly another `err`)
+ * becomes the output. Error channels are unioned.
+ *
+ * Dual API — works data-first or curried for use in `pipe`.
+ *
+ * @example
+ *   pipe(
+ *     parseOrderId(raw),
+ *     Result.flatMap(id => loadOrder(id)),
+ *     Result.flatMap(order => chargePayment(order)),
+ *   )
+ */
 export function flatMap<T, E, U, F>(
   result: Result<T, E>,
   fn: (value: T) => Result<U, F>,

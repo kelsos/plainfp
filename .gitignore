@@ -21,6 +21,9 @@ packages/*/.vite-plus/
 *.tsbuildinfo
 packages/*/*.tsbuildinfo
 
+# TypeDoc generated site
+packages/*/docs/api/
+
 # Git hooks (managed by `vp config` — don't commit local installs)
 .vite-hooks/
 

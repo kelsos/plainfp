@@ -1,6 +1,19 @@
 import { none, some } from "../option/constructors.ts";
 import type { Option } from "../option/types.ts";
 
+/**
+ * Locate the first element matching `predicate`, wrapped in an `Option` —
+ * `none` when nothing matches, avoiding the native `undefined` ambiguity.
+ *
+ * Dual API — works data-first or curried for use in `pipe`.
+ *
+ * @example
+ *   pipe(
+ *     users,
+ *     Arrays.find((u) => u.email === "a@b.co"),
+ *   )
+ *   // { some: true, value: { ... } } | { some: false }
+ */
 export function find<T>(xs: ReadonlyArray<T>, predicate: (x: T, i: number) => boolean): Option<T>;
 export function find<T>(
   predicate: (x: T, i: number) => boolean,
@@ -20,6 +33,18 @@ export function find<T>(
   return run(xsOrPred, predicate as (x: T, i: number) => boolean);
 }
 
+/**
+ * Locate the index of the first element matching `predicate`, wrapped in
+ * an `Option` — `none` replaces the native `-1` sentinel.
+ *
+ * Dual API — works data-first or curried for use in `pipe`.
+ *
+ * @example
+ *   pipe(
+ *     orders,
+ *     Arrays.findIndex((o) => o.status === "shipped"),
+ *   )
+ */
 export function findIndex<T>(
   xs: ReadonlyArray<T>,
   predicate: (x: T, i: number) => boolean,
@@ -41,6 +66,19 @@ export function findIndex<T>(
   return run(xsOrPred, predicate as (x: T, i: number) => boolean);
 }
 
+/**
+ * Check whether `value` is present using SameValueZero equality
+ * (so `NaN` matches `NaN`).
+ *
+ * Dual API — works data-first or curried for use in `pipe`.
+ *
+ * @example
+ *   pipe(
+ *     ["admin", "editor"],
+ *     Arrays.includes("admin"),
+ *   )
+ *   // true
+ */
 export function includes<T>(xs: ReadonlyArray<T>, value: T): boolean;
 export function includes<T>(value: T): (xs: ReadonlyArray<T>) => boolean;
 export function includes<T>(

@@ -1,3 +1,16 @@
+/**
+ * Compose a series of unary functions left-to-right, applying them to a seed
+ * value. Unlike {@link flow}, `pipe` runs immediately and returns the result.
+ *
+ * @example
+ *   const slug = pipe(
+ *     "  Hello World  ",
+ *     (s) => s.trim(),
+ *     (s) => s.toLowerCase(),
+ *     (s) => s.replace(/\s+/g, "-"),
+ *   )
+ *   // "hello-world"
+ */
 export function pipe<A>(a: A): A;
 export function pipe<A, B>(a: A, ab: (a: A) => B): B;
 export function pipe<A, B, C>(a: A, ab: (a: A) => B, bc: (b: B) => C): C;
@@ -42,6 +55,17 @@ export function pipe(value: unknown, ...fns: ReadonlyArray<(x: unknown) => unkno
   return result;
 }
 
+/**
+ * Compose unary functions left-to-right into a new reusable function. Unlike
+ * {@link pipe}, `flow` defers execution — it returns a function awaiting input.
+ *
+ * @example
+ *   const normalizeEmail = flow(
+ *     (s: string) => s.trim(),
+ *     (s) => s.toLowerCase(),
+ *   )
+ *   normalizeEmail("  User@Example.COM ") // "user@example.com"
+ */
 export function flow<A, B>(ab: (a: A) => B): (a: A) => B;
 export function flow<A, B, C>(ab: (a: A) => B, bc: (b: B) => C): (a: A) => C;
 export function flow<A, B, C, D>(ab: (a: A) => B, bc: (b: B) => C, cd: (c: C) => D): (a: A) => D;

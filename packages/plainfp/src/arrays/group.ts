@@ -1,3 +1,16 @@
+/**
+ * Bucket elements into a record keyed by `keyFn`. Elements sharing a key
+ * are appended to the same bucket in input order.
+ *
+ * Dual API — works data-first or curried for use in `pipe`.
+ *
+ * @example
+ *   pipe(
+ *     orders,
+ *     Arrays.groupBy((o) => o.status),
+ *   )
+ *   // { pending: [...], shipped: [...] }
+ */
 export function groupBy<T, K extends PropertyKey>(
   xs: ReadonlyArray<T>,
   keyFn: (x: T) => K,
@@ -21,6 +34,18 @@ export function groupBy<T, K extends PropertyKey>(
   return run(xsOrFn, keyFn as (x: T) => K);
 }
 
+/**
+ * Split into `[matches, rest]` based on `predicate`. Relative order is
+ * preserved within each side.
+ *
+ * Dual API — works data-first or curried for use in `pipe`.
+ *
+ * @example
+ *   const [active, inactive] = pipe(
+ *     users,
+ *     Arrays.partition((u) => u.active),
+ *   )
+ */
 export function partition<T>(xs: ReadonlyArray<T>, predicate: (x: T) => boolean): [T[], T[]];
 export function partition<T>(predicate: (x: T) => boolean): (xs: ReadonlyArray<T>) => [T[], T[]];
 export function partition<T>(
@@ -37,6 +62,19 @@ export function partition<T>(
   return run(xsOrPred, predicate as (x: T) => boolean);
 }
 
+/**
+ * Split `xs` into consecutive slices of length `size`. The last slice may
+ * be shorter if the length isn't divisible.
+ *
+ * Dual API — works data-first or curried for use in `pipe`.
+ *
+ * @throws RangeError if `size` is not a positive integer (fractional, zero,
+ *   or negative values all reject).
+ *
+ * @example
+ *   chunk([1, 2, 3, 4, 5], 2)
+ *   // [[1, 2], [3, 4], [5]]
+ */
 export function chunk<T>(xs: ReadonlyArray<T>, size: number): T[][];
 export function chunk<T>(size: number): (xs: ReadonlyArray<T>) => T[][];
 export function chunk<T>(

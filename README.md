@@ -4,6 +4,7 @@
 [![npm](https://img.shields.io/npm/v/plainfp.svg)](https://www.npmjs.com/package/plainfp)
 [![codecov](https://codecov.io/gh/kelsos/plainfp/graph/badge.svg)](https://codecov.io/gh/kelsos/plainfp)
 [![CodSpeed](https://img.shields.io/endpoint?url=https://codspeed.io/badge.json)](https://codspeed.io/kelsos/plainfp?utm_source=badge)
+[![docs](https://img.shields.io/badge/docs-kelsos.net%2Fplainfp-blue.svg)](https://kelsos.net/plainfp/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 
 This repo hosts the [`plainfp`](./packages/plainfp) package.

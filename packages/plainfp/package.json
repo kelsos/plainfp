@@ -101,6 +101,8 @@
     "coverage": "vp test --coverage",
     "bench": "vp test bench --run",
     "attw": "pnpm dlx @arethetypeswrong/cli@0.18.2 --pack . --profile esm-only",
+    "docs": "typedoc",
+    "docs:watch": "typedoc --watch",
     "release": "changelogen --release --push"
   },
   "devDependencies": {
@@ -108,6 +110,7 @@
     "@types/node": "25.6.0",
     "@vitest/coverage-v8": "4.1.4",
     "@voidzero-dev/vite-plus-core": "0.1.18",
+    "typedoc": "0.28.18",
     "typescript": "6.0.3",
     "vite-plus": "0.1.18",
     "zod": "4.3.6"

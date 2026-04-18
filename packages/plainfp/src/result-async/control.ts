@@ -1,6 +1,14 @@
 import { err } from "../result/constructors.ts";
 import type { ResultAsync } from "./types.ts";
 
+/**
+ * Configuration for {@link retry}.
+ *
+ * - `times`: total number of attempts (>= 1). A value of `1` means no retry.
+ * - `delayMs`: base delay between attempts in milliseconds. Defaults to `0`.
+ * - `backoff`: `"linear"` multiplies `delayMs` by attempt count;
+ *   `"exponential"` doubles on each attempt. Defaults to `"linear"`.
+ */
 export type RetryOptions = {
   readonly times: number;
   readonly delayMs?: number;
@@ -9,6 +17,16 @@ export type RetryOptions = {
 
 const sleep = (ms: number): Promise<void> => new Promise((resolve) => setTimeout(resolve, ms));
 
+/**
+ * Invoke `factory` repeatedly until it produces `ok` or `times` attempts are
+ * exhausted. Returns the last result. Throws `RangeError` if `times < 1`.
+ *
+ * @example
+ *   const user = await retry(
+ *     () => fetchUser(id),
+ *     { times: 3, delayMs: 200, backoff: "exponential" },
+ *   )
+ */
 export const retry = async <T, E>(
   factory: () => ResultAsync<T, E>,
   options: RetryOptions,
@@ -30,6 +48,19 @@ export const retry = async <T, E>(
   return last;
 };
 
+/**
+ * Race a {@link ResultAsync} against a timer. If `ms` elapses first, resolves
+ * with `err(onTimeout())`; otherwise resolves with the original result. The
+ * underlying promise keeps running — `timeout` does not cancel it.
+ *
+ * Dual API — works data-first or curried for use in `pipe`.
+ *
+ * @example
+ *   pipe(
+ *     fetchUser(id),
+ *     ResultAsync.timeout(5_000, () => ({ code: "SLOW_USER_API" })),
+ *   )
+ */
 export function timeout<T, E, F>(
   ra: ResultAsync<T, E>,
   ms: number,

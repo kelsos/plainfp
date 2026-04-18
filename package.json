@@ -26,6 +26,7 @@
     "release": "pnpm --filter plainfp release",
     "coverage": "pnpm -r run coverage",
     "bench": "pnpm --filter plainfp run bench",
+    "docs": "pnpm --filter plainfp run docs",
     "commitlint": "commitlint"
   },
   "devDependencies": {

@@ -1,6 +1,17 @@
 import { none, some } from "../option/constructors.ts";
 import type { Option } from "../option/types.ts";
 
+/**
+ * Look up a key's value. Only own properties are considered — inherited
+ * prototype-chain entries return `none`.
+ *
+ * Dual API — works data-first or curried for use in `pipe`.
+ *
+ * @example
+ *   const cache: Record<string, number> = { hits: 42 }
+ *   get(cache, "hits")     // { some: true, value: 42 }
+ *   get(cache, "toString") // { some: false } — prototype method ignored
+ */
 export function get<V>(record: Readonly<Record<PropertyKey, V>>, key: PropertyKey): Option<V>;
 export function get<V>(key: PropertyKey): (record: Readonly<Record<PropertyKey, V>>) => Option<V>;
 export function get<V>(
@@ -18,6 +29,18 @@ export function get<V>(
   return run(recordOrKey as Readonly<Record<PropertyKey, V>>, key as PropertyKey);
 }
 
+/**
+ * Look up a key's value, falling back to `fallback` when absent. Only own
+ * properties are considered — inherited prototype-chain entries are
+ * treated as missing.
+ *
+ * Dual API — works data-first or curried for use in `pipe`.
+ *
+ * @example
+ *   const settings: Record<string, number> = { timeout: 30 }
+ *   getOr(settings, "timeout", 10) // 30
+ *   getOr(settings, "retries", 3)  // 3
+ */
 export function getOr<V>(
   record: Readonly<Record<PropertyKey, V>>,
   key: PropertyKey,
@@ -48,10 +71,31 @@ export function getOr<V>(
   );
 }
 
+/**
+ * List the record's own enumerable string keys, typed as `K`.
+ *
+ * @example
+ *   keys({ id: 1, name: "Ada" })
+ *   // ["id", "name"]
+ */
 export const keys = <K extends PropertyKey, V>(record: Readonly<Record<K, V>>): K[] =>
   Object.keys(record) as K[];
 
+/**
+ * List the record's own enumerable values.
+ *
+ * @example
+ *   values({ id: 1, name: "Ada" })
+ *   // [1, "Ada"]
+ */
 export const values = <V>(record: Readonly<Record<PropertyKey, V>>): V[] => Object.values(record);
 
+/**
+ * List the record's own enumerable `[key, value]` pairs, typed as `[K, V]`.
+ *
+ * @example
+ *   entries({ id: 1, name: "Ada" })
+ *   // [["id", 1], ["name", "Ada"]]
+ */
 export const entries = <K extends PropertyKey, V>(record: Readonly<Record<K, V>>): [K, V][] =>
   Object.entries(record) as [K, V][];
