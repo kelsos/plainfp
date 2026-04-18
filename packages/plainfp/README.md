@@ -184,9 +184,9 @@ const first: string = head(names); // no Option, no undefined
 | ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `plainfp`                 | `pipe`, `flow`, `ok`, `err`, `some`, `none` + every namespace                                                                                                      |
 | `plainfp/pipe`            | `pipe`, `flow`                                                                                                                                                     |
-| `plainfp/result`          | `ok`, `err`, `fromNullable`, `fromThrowable`, `map`, `mapError`, `flatMap`, `all`, `any`, `zip`, `getOr`, `match`, `isOk`, `isErr`                                 |
+| `plainfp/result`          | `ok`, `err`, `fromNullable`, `fromThrowable`, `map`, `mapError`, `flatMap`, `tap`, `tapError`, `all`, `any`, `zip`, `getOr`, `match`, `isOk`, `isErr`, `toOption`  |
 | `plainfp/result-async`    | `fromPromise`, `fromAsync`, `ok`, `err`, `map`, `mapError`, `flatMap`, `tap`, `tapError`, `all`, `allWithConcurrency`, `retry`, `timeout`, `getOr`, `match`        |
-| `plainfp/option`          | `some`, `none`, `fromNullable`, `map`, `flatMap`, `filter`, `getOr`, `match`, `isSome`, `isNone`                                                                   |
+| `plainfp/option`          | `some`, `none`, `fromNullable`, `map`, `flatMap`, `filter`, `tap`, `tapNone`, `all`, `any`, `zip`, `getOr`, `match`, `isSome`, `isNone`, `toResult`                |
 | `plainfp/arrays`          | `map`, `filter`, `flatMap`, `reduce`, `groupBy`, `partition`, `chunk`, `find`, `findIndex`, `includes`, `sumBy`, `countBy`, `minBy`, `maxBy`, `unique`, `uniqueBy` |
 | `plainfp/records`         | `get`, `getOr`, `keys`, `values`, `entries`, `mapValues`, `mapKeys`, `filter`                                                                                      |
 | `plainfp/strings`         | `split`, `trim`, `capitalize`, `lowercase`, `uppercase`, `isEmpty`, `startsWith`, `endsWith`, `lines`                                                              |
