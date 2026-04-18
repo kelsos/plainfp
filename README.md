@@ -1,5 +1,7 @@
 # plainfp — monorepo
 
+[![CodSpeed](https://img.shields.io/endpoint?url=https://codspeed.io/badge.json)](https://codspeed.io/kelsos/plainfp?utm_source=badge)
+
 This repo hosts the [`plainfp`](./packages/plainfp) package.
 
 See [`packages/plainfp/README.md`](./packages/plainfp/README.md) for the library
