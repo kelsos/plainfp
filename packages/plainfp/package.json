@@ -1,6 +1,6 @@
 {
   "name": "plainfp",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "A plain, readable functional programming library for TypeScript — Result, Option, and friends, without the category theory.",
   "keywords": [
     "fp",
