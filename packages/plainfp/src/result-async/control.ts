@@ -19,11 +19,18 @@ const sleep = (ms: number): Promise<void> => new Promise((resolve) => setTimeout
 
 /**
  * Invoke `factory` repeatedly until it produces `ok` or `times` attempts are
- * exhausted. Returns the last result. Throws `RangeError` if `times < 1`.
+ * exhausted. Returns the last result.
+ *
+ * Factories must return a {@link ResultAsync}. If one rejects (rather than
+ * resolving to `err`), the rejection propagates immediately and no further
+ * retries are attempted — wrap throwing code with `fromPromise`/`fromAsync`
+ * so failures become typed `err` values.
+ *
+ * @throws RangeError if `times < 1`.
  *
  * @example
  *   const user = await retry(
- *     () => fetchUser(id),
+ *     () => fromPromise(fetchUser(id), e => ({ code: "NETWORK", cause: e })),
  *     { times: 3, delayMs: 200, backoff: "exponential" },
  *   )
  */

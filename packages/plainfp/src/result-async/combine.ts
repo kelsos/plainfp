@@ -25,12 +25,17 @@ export const all = async <T, E>(results: ReadonlyArray<ResultAsync<T, E>>): Resu
  * invoked lazily so only up to `concurrency` run at once. Short-circuits on
  * the first `err` — in-flight factories finish but no new ones start.
  *
- * Throws `RangeError` if `concurrency < 1`. If a factory rejects (rather than
- * returning `err`), that slot is dropped and the worker exits; wrap throwing
- * code with `fromPromise`/`fromAsync` to preserve it as a typed error.
+ * Factories must return a {@link ResultAsync}. If one rejects (rather than
+ * resolving to `err`), the rejection propagates and the overall promise
+ * rejects — wrap throwing code with `fromPromise`/`fromAsync` so failures
+ * become typed `err` values.
+ *
+ * @throws RangeError if `concurrency < 1`.
  *
  * @example
- *   const factories = userIds.map(id => () => fetchUser(id))
+ *   const factories = userIds.map(id =>
+ *     () => fromPromise(fetchUser(id), e => ({ code: "LOAD", cause: e })),
+ *   )
  *   const users = await allWithConcurrency(factories, 5)
  */
 export const allWithConcurrency = async <T, E>(
@@ -49,18 +54,13 @@ export const allWithConcurrency = async <T, E>(
       if (firstErr !== null) return;
       const i = nextIndex++;
       if (i >= factories.length) return;
-      try {
-        const r = await factories[i]!();
-        results[i] = r;
-        if (!r.ok && firstErr === null) firstErr = r;
-      } catch {
-        // A factory rejected instead of returning `err`. Swallow — ResultAsync
-        // is a Result-typed API; consumers should use `fromPromise`/`fromAsync`
-        // to convert throwing code to `err` values. We stop this worker to
-        // avoid reading beyond the rejected slot but don't treat it as
-        // `firstErr` since we have no typed error value.
-        return;
-      }
+      // Let factory rejections propagate. We can't synthesise a typed `err`
+      // from an untyped throw, and silently dropping a slot leaves a hole in
+      // the output array that breaks downstream consumers. Users convert
+      // throws to typed errors with fromPromise/fromAsync at the boundary.
+      const r = await factories[i]!();
+      results[i] = r;
+      if (!r.ok && firstErr === null) firstErr = r;
     }
   };
 
