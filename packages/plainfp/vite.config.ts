@@ -1,5 +1,20 @@
 import codspeedPlugin from "@codspeed/vitest-plugin";
+import { createRequire } from "node:module";
 import { defineConfig } from "vite-plus";
+
+// Workaround: @codspeed/vitest-plugin reads vitest's package.json to detect
+// the major version, but pnpm overrides alias vitest to vite-plus-test
+// (v0.1.18), so the plugin misdetects version 0 and falls back to the
+// vitest 3 config path (poolOptions.forks.execArgv) which vitest 4 ignores.
+// Provide execArgv directly so the V8 flags reach the benchmark workers.
+function getCodSpeedExecArgv(): string[] | undefined {
+  if (process.env.CODSPEED_ENV === undefined) return undefined;
+  const require = createRequire(import.meta.url);
+  const { getV8Flags } = require("@codspeed/core");
+  return getV8Flags();
+}
+
+const codspeedExecArgv = getCodSpeedExecArgv();
 
 export default defineConfig({
   plugins: [codspeedPlugin()],
@@ -34,6 +49,7 @@ export default defineConfig({
     benchmark: {
       include: ["src/**/*.bench.ts"],
     },
+    ...(codspeedExecArgv && { execArgv: codspeedExecArgv }),
     coverage: {
       provider: "v8",
       include: ["src/**/*.ts"],
