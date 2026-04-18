@@ -1,5 +1,10 @@
 # plainfp
 
+[![npm](https://img.shields.io/npm/v/plainfp.svg)](https://www.npmjs.com/package/plainfp)
+[![codecov](https://codecov.io/gh/kelsos/plainfp/graph/badge.svg)](https://codecov.io/gh/kelsos/plainfp)
+[![CodSpeed](https://img.shields.io/endpoint?url=https://codspeed.io/badge.json)](https://codspeed.io/kelsos/plainfp?utm_source=badge)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
+
 A plain, readable functional programming library for TypeScript.
 
 Borrows the best ideas from neverthrow, fp-ts, Effect, and Remeda — but drops the

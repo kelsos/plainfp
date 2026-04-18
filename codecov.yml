@@ -1,0 +1,26 @@
+# Codecov config — https://docs.codecov.com/docs/codecov-yaml
+coverage:
+  status:
+    # "project" = overall repo coverage must stay at or above current - 1%
+    project:
+      default:
+        target: auto
+        threshold: 1%
+        informational: false
+    # "patch" = newly added code in a PR must hit 80% (prevents landing untested code)
+    patch:
+      default:
+        target: 80%
+        threshold: 1%
+        informational: false
+
+comment:
+  layout: "reach, diff, flags, files"
+  behavior: default
+  require_changes: false
+
+# Don't gate on coverage uploads that include bench or test files themselves
+ignore:
+  - "packages/plainfp/src/**/*.test.ts"
+  - "packages/plainfp/src/**/*.bench.ts"
+  - "packages/plainfp/src/**/index.ts" # namespace re-exports only

@@ -1,5 +1,11 @@
 # plainfp — monorepo
 
+[![CI](https://github.com/kelsos/plainfp/actions/workflows/ci.yml/badge.svg)](https://github.com/kelsos/plainfp/actions/workflows/ci.yml)
+[![npm](https://img.shields.io/npm/v/plainfp.svg)](https://www.npmjs.com/package/plainfp)
+[![codecov](https://codecov.io/gh/kelsos/plainfp/graph/badge.svg)](https://codecov.io/gh/kelsos/plainfp)
+[![CodSpeed](https://img.shields.io/endpoint?url=https://codspeed.io/badge.json)](https://codspeed.io/kelsos/plainfp?utm_source=badge)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
+
 This repo hosts the [`plainfp`](./packages/plainfp) package.
 
 See [`packages/plainfp/README.md`](./packages/plainfp/README.md) for the library
