@@ -5,25 +5,7 @@ packages:
 # Block packages published less than 7 days ago. The chalk/debug-class
 # attacks are typically caught and pulled within hours to days.
 minimumReleaseAge: 10080
-minimumReleaseAgeExclude:
-  # vite-plus meta-package + platform binaries (we've committed to this stack)
-  - "@voidzero-dev/*"
-  - "vite-plus"
-  # vite-plus bundles these — allowlisting the stack we've already accepted
-  - "oxlint"
-  - "oxfmt"
-  - "@oxlint/*"
-  - "@oxfmt/*"
-  - "@oxc-project/*"
-  - "rolldown"
-  - "@rolldown/*"
-  - "tsdown"
-  - "lint-staged"
-  # Microsoft-published, extremely high trust + wide deployment
-  - "typescript"
-  - "@types/*"
-  # CodSpeed (benchmarking under Valgrind) — scope we've vetted
-  - "@codspeed/*"
+minimumReleaseAgeExclude: []
 
 # Refuse to install a dep that lost its trusted-publisher / provenance
 # signal between releases (pnpm 10.21+).
@@ -55,5 +37,5 @@ fetchRetries: 3
 # vite-plus aliases `vite` and `vitest` to its own builds; this makes
 # every transitive dep resolve to the aliased packages.
 overrides:
-  vite: "npm:@voidzero-dev/vite-plus-core@0.1.18"
-  vitest: "npm:@voidzero-dev/vite-plus-test@0.1.18"
+  vite: "npm:@voidzero-dev/vite-plus-core@0.1.20"
+  vitest: "npm:@voidzero-dev/vite-plus-test@0.1.20"
