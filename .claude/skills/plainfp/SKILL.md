@@ -34,11 +34,18 @@ pipe(readBalance(addr), map(fmt), getOr("0"));  // curried steps
 ```ts
 type Result<T, E> = { ok: true; value: T } | { ok: false; error: E };
 type Option<T>    = { some: true; value: T } | { some: false };
+type ResultAsync<T, E> = Promise<Result<T, E>>; // literally just a Promise
 ```
 
 So you can `JSON.stringify` them, narrow with `if (r.ok)` / `if (o.some)`, and
 send them over the wire. There is no `_tag`, no `instanceof`, no `.isOk()` method
 — `isOk(r)` / `isErr(r)` / `isSome(o)` / `isNone(o)` are standalone type guards.
+
+`ResultAsync<T, E>` is **just `Promise<Result<T, E>>`** — not a chainable
+thenable class like neverthrow's. You `await` it to get a plain `Result`, and you
+compose it with `pipe` + the curried `result-async` helpers; there is no
+`.map().mapErr()` method chaining. Rejection is never used to signal failure —
+errors live in the resolved `err` branch.
 
 ## Imports — prefer subpaths
 
@@ -95,6 +102,38 @@ pipe(
 );
 ```
 
+**`flow` — build a reusable function from curried steps (point-free):**
+`pipe` runs a value through steps now; `flow` composes the same steps into a
+named function you can reuse. `flow(f, g)` is `(x) => g(f(x))`.
+```ts
+import { flow } from "plainfp";
+import { map, flatMap, getOr } from "plainfp/result";
+
+const formatBalance = flow(
+  map((n: number) => n / 1e18),
+  map((n) => n.toFixed(4)),
+  getOr("0"),
+);
+formatBalance(readBalance(addr)); // reuse on many inputs
+```
+
+**Validate with Zod → `Result` (`plainfp/interop/zod`):**
+```ts
+import { z } from "zod";
+import { fromZod, fromZodAsync } from "plainfp/interop/zod";
+
+const User = z.object({ id: z.string(), age: z.number() });
+const parseUser = fromZod(User);     // (input: unknown) => Result<User, z.ZodError>
+const r = parseUser(JSON.parse(body));
+if (r.ok) save(r.value);
+else console.error(r.error.issues);
+
+// Schemas with async refinements/transforms: fromZod THROWS — use fromZodAsync,
+// which returns a ResultAsync (Promise<Result<…>>).
+const parseSignup = fromZodAsync(Signup);
+const res = await parseSignup(formData);
+```
+
 **Async with timeout / retry / capped concurrency:**
 ```ts
 import { fromPromise, timeout, retry, allWithConcurrency } from "plainfp/result-async";
@@ -125,6 +164,15 @@ const NetworkError = tag("NetworkError");
 const e = NetworkError({ url: "/users", status: 503 });
 if (hasTag(e, "NetworkError")) console.error(e.status);
 ```
+
+**Combining `Result`/`Option` (`all` / `any` / `zip`):**
+```ts
+all([ok(1), ok(2)]);        // ok([1, 2])  — all succeed, else first err
+any([err("a"), ok(2)]);     // ok(2)       — first success, else collects errors
+zip(ok(1), ok("x"));        // ok([1, "x"]) — pair two into a tuple
+```
+For `result-async`, `all` resolves the same way over a list of `ResultAsync`,
+and `allWithConcurrency(factories, n)` caps how many run at once.
 
 **Cross-type interop:** `Result.toOption(r)`, `Option.toResult(o, onNone)`.
 
