@@ -16,6 +16,14 @@ on:
     tags:
       - "v*"
 
+# Serialize releases so two tags can't publish concurrently.
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+# Deny by default at the workflow level; the publish job grants exactly what it needs.
+permissions: {}
+
 jobs:
   publish:
     name: Publish to npm
@@ -25,14 +33,18 @@ jobs:
       contents: write # for creating the GitHub Release below
     steps:
       - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          persist-credentials: false
 
       - uses: pnpm/action-setup@0ebf47130e4866e96fce0953f49152a61190b271 # v6.0.9
 
       - uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
         with:
           node-version-file: .nvmrc
-          cache: pnpm
           registry-url: https://registry.npmjs.org
+          # No package-manager cache in the publish workflow: a poisoned cache
+          # could tamper with the artifact we publish (zizmor cache-poisoning).
+          package-manager-cache: false
 
       - run: pnpm install --frozen-lockfile
 
