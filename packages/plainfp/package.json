@@ -100,7 +100,7 @@
     "check": "vp check",
     "coverage": "vp test --coverage",
     "bench": "vp test bench --run",
-    "attw": "pnpm dlx @arethetypeswrong/cli@0.18.2 --pack . --profile esm-only",
+    "attw": "pnpm dlx @arethetypeswrong/cli@0.18.3 --pack . --profile esm-only",
     "docs": "typedoc",
     "docs:watch": "typedoc --watch",
     "release": "changelogen --release --push"

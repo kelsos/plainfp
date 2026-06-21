@@ -163,4 +163,4 @@ jobs:
         working-directory: packages/plainfp
         run: |
           pnpm dlx publint
-          pnpm dlx @arethetypeswrong/cli@0.18.2 --pack . --profile esm-only
+          pnpm dlx @arethetypeswrong/cli@0.18.3 --pack . --profile esm-only
