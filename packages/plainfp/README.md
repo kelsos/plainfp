@@ -145,8 +145,8 @@ import { make } from "plainfp/brand";
 type UserId = Brand<string, "UserId">;
 type Email = Brand<string, "Email">;
 
-const id: UserId = make<UserId>("u-123");
-const addr: Email = make<Email>("a@b.com");
+const id: UserId = make<string, "UserId">("u-123");
+const addr: Email = make<string, "Email">("a@b.com");
 
 // @ts-expect-error — can't pass an Email where a UserId is expected
 lookupUser(addr);
