@@ -37,5 +37,5 @@ fetchRetries: 3
 # vite-plus aliases `vite` and `vitest` to its own builds; this makes
 # every transitive dep resolve to the aliased packages.
 overrides:
-  vite: "npm:@voidzero-dev/vite-plus-core@0.1.20"
-  vitest: "npm:@voidzero-dev/vite-plus-test@0.1.20"
+  vite: "npm:@voidzero-dev/vite-plus-core@0.1.24"
+  vitest: "npm:@voidzero-dev/vite-plus-test@0.1.24"
