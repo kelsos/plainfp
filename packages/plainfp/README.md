@@ -233,6 +233,22 @@ Namespace imports (`import { Result } from "plainfp"` → `Result.map(…)`) wor
 too and stay under ~1.3 KB on esbuild. Rollup-based bundlers (Vite, Rolldown)
 do even better.
 
+## Claude Code skill
+
+This repo ships a [Claude Code skill](../../.claude/skills/plainfp/) that teaches
+AI assistants to write idiomatic plainfp (correct export names, the dual
+data-first/curried API, `getOr` over `unwrapOr`, subpath imports). Install it
+globally or per-project:
+
+```sh
+mkdir -p ~/.claude/skills/plainfp
+curl -fsSL https://raw.githubusercontent.com/kelsos/plainfp/main/.claude/skills/plainfp/SKILL.md \
+  -o ~/.claude/skills/plainfp/SKILL.md
+```
+
+See [`.claude/skills/plainfp/README.md`](../../.claude/skills/plainfp/README.md)
+for details.
+
 ## License
 
 MIT © Konstantinos Paparas
