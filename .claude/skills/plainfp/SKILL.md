@@ -160,6 +160,32 @@ const loadUser = flow(RA.map(parseBody), RA.flatMap(validate), RA.mapError(toApi
 await loadUser(fromPromise(fetch(u).then((r) => r.json()), toNetErr));
 ```
 
+**A local `fetchJson` helper** — plainfp ships no `fetch` wrapper (it stays
+minimal); write a small one in your own code that turns HTTP into a typed
+`ResultAsync`. Note `res.ok === false` is a *value*, not a thrown error, so it
+goes through `err`, while network failure and bad JSON are captured by
+`fromPromise`:
+```ts
+import { pipe } from "plainfp";
+import { fromPromise, flatMap, err } from "plainfp/result-async";
+
+type HttpError =
+  | { kind: "network"; cause: unknown }
+  | { kind: "http"; status: number }
+  | { kind: "parse"; cause: unknown };
+
+const fetchJson = <T>(url: string, init?: RequestInit) =>
+  pipe(
+    fromPromise(fetch(url, init), (cause): HttpError => ({ kind: "network", cause })),
+    flatMap((res) =>
+      res.ok
+        ? fromPromise(res.json() as Promise<T>, (cause): HttpError => ({ kind: "parse", cause }))
+        : err<HttpError>({ kind: "http", status: res.status })),
+  ); // ResultAsync<T, HttpError>
+
+const user = await pipe(fetchJson<User>("/api/me"), getOr(guestUser));
+```
+
 **Async with timeout / retry / capped concurrency:**
 ```ts
 import { fromPromise, timeout, retry, allWithConcurrency } from "plainfp/result-async";
