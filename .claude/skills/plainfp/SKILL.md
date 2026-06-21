@@ -134,6 +134,32 @@ const parseSignup = fromZodAsync(Signup);
 const res = await parseSignup(formData);
 ```
 
+**Chaining `ResultAsync` — use `pipe`/`flow`, there is no `.map()` method.**
+The curried `result-async` helpers take a `ResultAsync` (i.e. `Promise<Result>`)
+and return one, so `pipe` threads the in-flight promise through every step and
+you `await` exactly once at the end. The error type accumulates through
+`flatMap`; folds like `getOr`/`match` leave the `Result` world.
+```ts
+import { pipe } from "plainfp";
+import { fromPromise, map, flatMap, mapError, getOr } from "plainfp/result-async";
+
+const name = await pipe(
+  fromPromise(fetch(url).then((r) => r.json()), toNetErr), // ResultAsync<Raw, NetErr>
+  map(parseBody),
+  flatMap(validate),                                       // ResultAsync<User, NetErr | ValErr>
+  mapError(toApiError),
+  getOr("anonymous"),                                      // Promise<string>
+);
+```
+Build a reusable async pipeline with `flow` (a `ResultAsync -> ResultAsync` fn):
+```ts
+import { flow } from "plainfp";
+import * as RA from "plainfp/result-async";
+
+const loadUser = flow(RA.map(parseBody), RA.flatMap(validate), RA.mapError(toApiError));
+await loadUser(fromPromise(fetch(u).then((r) => r.json()), toNetErr));
+```
+
 **Async with timeout / retry / capped concurrency:**
 ```ts
 import { fromPromise, timeout, retry, allWithConcurrency } from "plainfp/result-async";
