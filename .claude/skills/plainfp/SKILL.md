@@ -70,9 +70,9 @@ or use namespace imports to avoid collisions.
 | --- | --- |
 | `plainfp` | `pipe`, `flow`, `ok`, `err`, `some`, `none` + every namespace |
 | `plainfp/pipe` | `pipe`, `flow` |
-| `plainfp/result` | `ok`, `err`, `fromNullable`, `fromThrowable`, `map`, `mapError`, `flatMap`, `tap`, `tapError`, `all`, `any`, `zip`, `getOr`, `match`, `isOk`, `isErr`, `toOption` |
-| `plainfp/result-async` | `fromPromise`, `fromAsync`, `ok`, `err`, `map`, `mapError`, `flatMap`, `tap`, `tapError`, `all`, `allWithConcurrency`, `retry`, `timeout`, `getOr`, `match` |
-| `plainfp/option` | `some`, `none`, `fromNullable`, `map`, `flatMap`, `filter`, `tap`, `tapNone`, `all`, `any`, `zip`, `getOr`, `match`, `isSome`, `isNone`, `toResult` |
+| `plainfp/result` | `ok`, `err`, `fromNullable`, `fromThrowable`, `map`, `mapError`, `flatMap`, `tap`, `tapError`, `build`, `field`, `value`, `all`, `any`, `zip`, `getOr`, `match`, `isOk`, `isErr`, `toOption` |
+| `plainfp/result-async` | `fromPromise`, `fromAsync`, `ok`, `err`, `map`, `mapError`, `flatMap`, `tap`, `tapError`, `build`, `field`, `value`, `all`, `allWithConcurrency`, `retry`, `timeout`, `getOr`, `match` |
+| `plainfp/option` | `some`, `none`, `fromNullable`, `map`, `flatMap`, `filter`, `tap`, `tapNone`, `build`, `field`, `value`, `all`, `any`, `zip`, `getOr`, `match`, `isSome`, `isNone`, `toResult` |
 | `plainfp/arrays` | `map`, `filter`, `flatMap`, `reduce`, `groupBy`, `partition`, `chunk`, `find`, `findIndex`, `includes`, `sumBy`, `countBy`, `minBy`, `maxBy`, `unique`, `uniqueBy` |
 | `plainfp/records` | `get`, `getOr`, `keys`, `values`, `entries`, `mapValues`, `mapKeys`, `filter` |
 | `plainfp/strings` | `split`, `trim`, `capitalize`, `lowercase`, `uppercase`, `isEmpty`, `startsWith`, `endsWith`, `lines` |
@@ -116,6 +116,33 @@ const formatBalance = flow(
 );
 formatBalance(readBalance(addr)); // reuse on many inputs
 ```
+
+**Do-style builder — `build` / `field` / `value` for dependent chains.**
+When each step needs values bound by earlier steps (3+ steps), nested `flatMap`
+callbacks drift rightward. The builder keeps it flat: `build()` seeds an
+empty-scope success, `field(name, scope => Result)` binds a **fallible** step
+(short-circuits on the first failure, widens the error union), and
+`value(name, scope => pure)` binds a **pure** computed field (never fails). All
+three exist in `Result`, `Option`, and `ResultAsync`, with the usual dual API.
+Finish with `map`.
+```ts
+import { pipe } from "plainfp";
+import { build, field, value, map } from "plainfp/result";
+
+pipe(
+  build(),
+  field("token", () => fromNullable(getTokenBySymbol(sym), notFound)),
+  field("tier",  () => fromNullable(findTierById(tierId), notFound)),
+  field("price", ({ token, tier }) => fromNullable(token.prices[tier.key], noPrice)),
+  value("label", ({ tier }) => tier.key.toUpperCase()),
+  map(({ price, label }) => ({ price, label })),
+); // Result<{ price, label }, NotFound | NoPrice>
+```
+`ResultAsync`'s `field` awaits each step (sequential — for independent
+concurrent work use `all`), and its `value` accepts an async pure compute
+(`A | Promise<A>`). Re-binding an existing key replaces it. This is *not* the
+`Records` namespace — `Records` exports `values` (plural); `build`/`field`/`value`
+are the builder on `Result`/`Option`/`ResultAsync`.
 
 **Validate with Zod → `Result` (`plainfp/interop/zod`):**
 ```ts
