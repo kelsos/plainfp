@@ -25,7 +25,7 @@ importers:
     devDependencies:
       '@codspeed/vitest-plugin':
         specifier: 5.6.0
-        version: 5.6.0(@types/node@24.13.2)(jiti@2.6.1)(tinybench@2.9.0)(typescript@6.0.3)(vitest@4.1.9)(yaml@2.8.3)
+        version: 5.6.0(@types/node@24.13.2)(jiti@2.7.0)(tinybench@2.9.0)(typescript@6.0.3)(vitest@4.1.9)(yaml@2.9.0)
       '@types/node':
         specifier: 24.13.2
         version: 24.13.2
@@ -34,7 +34,7 @@ importers:
         version: 4.1.9(@vitest/browser@4.1.9)(vitest@4.1.9)
       '@voidzero-dev/vite-plus-core':
         specifier: 0.2.1
-        version: 0.2.1(@types/node@24.13.2)(jiti@2.6.1)(typescript@6.0.3)(yaml@2.8.3)
+        version: 0.2.1(@types/node@24.13.2)(jiti@2.7.0)(typescript@6.0.3)(yaml@2.9.0)
       fast-check:
         specifier: 4.8.0
         version: 4.8.0
@@ -46,7 +46,7 @@ importers:
         version: 6.0.3
       vite-plus:
         specifier: 0.2.1
-        version: 0.2.1(@types/node@24.13.2)(@vitest/coverage-v8@4.1.9)(jiti@2.6.1)(typescript@6.0.3)(yaml@2.8.3)
+        version: 0.2.1(@types/node@24.13.2)(@vitest/coverage-v8@4.1.9)(jiti@2.7.0)(typescript@6.0.3)(yaml@2.9.0)
       zod:
         specifier: 4.4.3
         version: 4.4.3
@@ -735,15 +735,15 @@ packages:
   asynckit@0.4.0:
     resolution: {integrity: sha512-Oei9OH4tRh0YqU3GxhX79dM/mwVgvbZJaSNaRk+bshkj0S5cfHcgYakreBjrHwatXKbz+IoIdYLxrKim2MjW0Q==}
 
-  axios@1.17.0:
-    resolution: {integrity: sha512-J8SwNxprqqpbfenehxWYXE7CW+wM1BB4w3+N+g+/Wx40xM4rsLrfPmHHxSWIxJLYDgSY/HqlFPIYb2/S3rxafw==}
+  axios@1.18.0:
+    resolution: {integrity: sha512-E32NzpYKp++W7XRe52rHiXV2ehxmh3wbdgO7MHeFM+vqxLBYHzt0ElkiImtOBxtOmyp0yoC8C6uESVV84Y2/hw==}
 
   balanced-match@4.0.4:
     resolution: {integrity: sha512-BLrgEcRTwX2o6gGxGOCNyMvGSp35YofuYzw9h1IMTRmKqttAZZVU67bdb9Pr2vUHA8+j3i2tJfjO6C6+4myGTA==}
     engines: {node: 18 || 20 || >=22}
 
-  brace-expansion@5.0.5:
-    resolution: {integrity: sha512-VZznLgtwhn+Mact9tfiwx64fA9erHH/MCXEUfB/0bX/6Fz6ny5EGTXYltMocqg4xFAQZtnO3DHWWXi8RiuN7cQ==}
+  brace-expansion@5.0.6:
+    resolution: {integrity: sha512-kLpxurY4Z4r9sgMsyG0Z9uzsBlgiU/EFKhj/h91/8yHu0edo7XuixOIH3VcJ8kkxs6/jPzoI6U9Vj3WqbMQ94g==}
     engines: {node: 18 || 20 || >=22}
 
   bundle-name@4.1.0:
@@ -878,8 +878,8 @@ packages:
     resolution: {integrity: sha512-QM8q3zDe58hqUqjraQOmzZ1LIH9SWQJTlEKCH4kJ2oQvLZk7RbQXvtDM2XEq3fwkV9CCvvH4LA0AV+ogFsBM2Q==}
     engines: {node: '>=8'}
 
-  dotenv@17.4.1:
-    resolution: {integrity: sha512-k8DaKGP6r1G30Lx8V4+pCsLzKr8vLmV2paqEj1Y55GdAgJuIqpRp5FfajGF8KtwMxCz9qJc6wUIJnm053d/WCw==}
+  dotenv@17.4.2:
+    resolution: {integrity: sha512-nI4U3TottKAcAD9LLud4Cb7b2QztQMUEfHbvhTH09bqXTxnSie8WnjPALV/WMCrJZ6UV/qHJ6L03OqO3LcdYZw==}
     engines: {node: '>=12'}
 
   dunder-proto@1.0.1:
@@ -996,13 +996,14 @@ packages:
     resolution: {integrity: sha512-sTSfBjoXBp89JvIKIefqw7U2CCebsc74kiY6awiGogKtoSGbgjYE/G/+l9sF3MWFPNc9IcoOC4ODfKHfxFmp0g==}
     engines: {node: '>= 0.4'}
 
-  giget@3.2.0:
-    resolution: {integrity: sha512-GvHTWcykIR/fP8cj8dMpuMMkvaeJfPvYnhq0oW+chSeIr+ldX21ifU2Ms6KBoyKZQZmVaUAAhQ2EZ68KJF8a7A==}
+  giget@3.3.0:
+    resolution: {integrity: sha512-gzi2D96p+AMfDcmJHGDj3KJ9NRiwvlFAU5yfa3ROwWZmFUjX4P43x3BcyRaOMMLto1vUo7C+86+MFhYTl6Ryiw==}
     hasBin: true
 
   git-raw-commits@5.0.1:
     resolution: {integrity: sha512-Y+csSm2GD/PCSh6Isd/WiMjNAydu0VBiG9J7EdQsNA5P9uXvLayqjmTsNlK5Gs9IhblFZqOU0yid5Il5JPoLiQ==}
     engines: {node: '>=18'}
+    deprecated: Deprecated and no longer maintained. Use @conventional-changelog/git-client instead.
     hasBin: true
 
   global-directory@5.0.0:
@@ -1083,6 +1084,10 @@ packages:
 
   jiti@2.6.1:
     resolution: {integrity: sha512-ekilCSN1jwRvIbgeg/57YFh8qQDNbwDb9xT/qu2DAHbFFZUicIl4ygVaAvzveMhMVr3LnpSKTNnwt8PoOfmKhQ==}
+    hasBin: true
+
+  jiti@2.7.0:
+    resolution: {integrity: sha512-AC/7JofJvZGrrneWNaEnJeOLUx+JlGt7tNa0wZiRPT4MY1wmfKjt2+6O2p2uz2+skll8OZZmJMNqeke7kKbNgQ==}
     hasBin: true
 
   js-tokens@10.0.0:
@@ -1178,8 +1183,8 @@ packages:
   lines-and-columns@1.2.4:
     resolution: {integrity: sha512-7ylylesZQ/PV29jhEDl3Ufjo6ZX7gCqJr5F7PKrqc93v7fzSymt1BpwEU8nAUXs8qzzvqhbjhK5QZg6Mt/HkBg==}
 
-  linkify-it@5.0.0:
-    resolution: {integrity: sha512-5aHCbzQRADcdP+ATqnDuhhJ/MRIqDkZX5pyjFHRRysS8vZ5AbqGEoFIb6pYHPZ+L/OC2Lc+xT8uHVVR5CAK/wQ==}
+  linkify-it@5.0.1:
+    resolution: {integrity: sha512-wVoTjP4Q6R0NW5hiZkVJaFZPWgtXfoGF+6LucL3/FtiNjmcHhYjEr5f1Kqjirc1nBW07J/ZuRFumqr2oqccEWg==}
 
   locate-path@7.2.0:
     resolution: {integrity: sha512-gvVijfZvn7R+2qyPX8mAuKcFGDf6Nc61GdvGafQsHL0sBIxfKzA+usWn4GFC/bk+QdwPUD4kWFJLhElipq+0VA==}
@@ -1202,8 +1207,8 @@ packages:
     resolution: {integrity: sha512-hXdUTZYIVOt1Ex//jAQi+wTZZpUpwBj/0QsOzqegb3rGMMeJiSEu5xLHnYfBrRV4RH2+OCSOO95Is/7x1WJ4bw==}
     engines: {node: '>=10'}
 
-  markdown-it@14.1.1:
-    resolution: {integrity: sha512-BuU2qnTti9YKgK5N+IeMubp14ZUKUUw7yeJbkjtosvHiP0AZ5c8IAgEMk79D0eC8F23r4Ac/q8cAIFdm2FtyoA==}
+  markdown-it@14.2.0:
+    resolution: {integrity: sha512-1TGiQiJVRQ3NPmZH6sx5Cfnmg6GQm9jvC1ch4TK511NjSJvjzKLzn5pPfZRNZkRPZP0HqCioSndqH8v2nRaWVQ==}
     hasBin: true
 
   math-intrinsics@1.1.0:
@@ -1240,8 +1245,8 @@ packages:
   ms@2.1.3:
     resolution: {integrity: sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==}
 
-  nanoid@3.3.12:
-    resolution: {integrity: sha512-ZB9RH/39qpq5Vu6Y+NmUaFhQR6pp+M2Xt76XBnEwDaGcVAqhlvxrl3B2bKS5D3NH3QR76v3aSrKaF/Kiy7lEtQ==}
+  nanoid@3.3.13:
+    resolution: {integrity: sha512-sPdqC6ByMVVGvF1ynvvMo0/o+oD1VX7DaHhijt1bFgjvBkHBib4t49GoNDhf2NDta4oeUNlaGbSt5K7qjZ955Q==}
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
 
@@ -1329,8 +1334,8 @@ packages:
     resolution: {integrity: sha512-QP88BAKvMam/3NxH6vj2o21R6MjxZUAd6nlwAS/pnGvN9IVLocLHxGYIzFhg6fUQ+5th6P4dv4eW9jX3DSIj7A==}
     engines: {node: '>=12'}
 
-  pkg-types@2.3.0:
-    resolution: {integrity: sha512-SIqCzDRg0s9npO5XQ3tNZioRY1uK06lA41ynBC1YmFTmnY6FjUjVt6s4LoADmwoig1qqD0oK8h1p/8mlMx8Oig==}
+  pkg-types@2.3.1:
+    resolution: {integrity: sha512-y+ichcgc2LrADuhLNAx8DFjVfgz91pRxfZdI3UDhxHvcVEZsenLO+7XaU5vOp0u/7V/wZ+plyuQxtrDlZJ+yeg==}
 
   pngjs@7.0.0:
     resolution: {integrity: sha512-LKWqWJRhstyYo9pGvgor/ivk2w94eSjE3RGVuzLGlr3NmD8bf7RcYGze1mNdEHRP6TRP6rMuDHk5t44hnTRyow==}
@@ -1383,11 +1388,6 @@ packages:
 
   scule@1.3.0:
     resolution: {integrity: sha512-6FtHJEvt+pVMIB9IBY+IcCJ6Z5f1iQnytgyfKMhDKgmzYG+TeH/wx1y3l27rshSbLiSanrR9ffZDrEsmjlQF2g==}
-
-  semver@7.7.4:
-    resolution: {integrity: sha512-vFKC2IEtQnVhpT78h1Yp8wzwrf8CM+MzKMHGJZfBtzhZNycRFnXsHk6E5TxIkkMsgNS7mdX3AGB7x2QM2di4lA==}
-    engines: {node: '>=10'}
-    hasBin: true
 
   semver@7.8.4:
     resolution: {integrity: sha512-rUCObTnP32Q08R2uuIrt7r9PlEonuTmtuXYcW6s5kjdlj3xbnwe+21yXptAUYcMAABLkYYTtnmzb3w3EDZfueA==}
@@ -1468,8 +1468,8 @@ packages:
   uc.micro@2.1.0:
     resolution: {integrity: sha512-ARDJmphmdvUk6Glw7y9DQ2bFkKBHwQHLi2lsaH6PPmz/Ka9sFOBsBluozhDltWmnv9u/cF6Rt87znRTPV+yp/A==}
 
-  ufo@1.6.3:
-    resolution: {integrity: sha512-yDJTmhydvl5lJzBmy/hyOAA0d+aqCBuwl818haVdYCRrWV84o7YyeVm4QlVHStqNrrJSTb6jKuFAVqAFsr+K3Q==}
+  ufo@1.6.4:
+    resolution: {integrity: sha512-JFNbkD1Svwe0KvGi8GOeLcP4kAWQ609twvCdcHxq1oSL8svv39ZuSvajcD8B+5D0eL4+s1Is2D/O6KN3qcTeRA==}
 
   undici-types@7.18.2:
     resolution: {integrity: sha512-AsuCzffGHJybSaRrmr5eHr81mwJU3kjw6M+uprWvCXiNeN9SOGwQ3Jn8jb8m3Z6izVgknn1R0FTCEAP2QrLY/w==}
@@ -1556,8 +1556,8 @@ packages:
     resolution: {integrity: sha512-0pfFzegeDWJHJIAmTLRP2DwHjdF5s7jo9tuztdQxAhINCdvS+3nGINqPd00AphqJR/0LhANUS6/+7SCb98YOfA==}
     engines: {node: '>=10'}
 
-  yaml@2.8.3:
-    resolution: {integrity: sha512-AvbaCLOO2Otw/lW5bmh9d/WEdcDFdQp2Z2ZUH3pX9U2ihyUY0nvLv7J6TrWowklRGPYbB/IuIMfYgxaCPg5Bpg==}
+  yaml@2.9.0:
+    resolution: {integrity: sha512-2AvhNX3mb8zd6Zy7INTtSpl1F15HW6Wnqj0srWlkKLcpYl/gMIMJiyuGq2KeI2YFxUPjdlB+3Lc10seMLtL4cA==}
     engines: {node: '>= 14.6'}
     hasBin: true
 
@@ -1605,7 +1605,7 @@ snapshots:
 
   '@codspeed/core@5.6.0':
     dependencies:
-      axios: 1.17.0
+      axios: 1.18.0
       find-up: 6.3.0
       form-data: 4.0.6
       node-gyp-build: 4.8.4
@@ -1614,11 +1614,11 @@ snapshots:
       - debug
       - supports-color
 
-  '@codspeed/vitest-plugin@5.6.0(@types/node@24.13.2)(jiti@2.6.1)(tinybench@2.9.0)(typescript@6.0.3)(vitest@4.1.9)(yaml@2.8.3)':
+  '@codspeed/vitest-plugin@5.6.0(@types/node@24.13.2)(jiti@2.7.0)(tinybench@2.9.0)(typescript@6.0.3)(vitest@4.1.9)(yaml@2.9.0)':
     dependencies:
       '@codspeed/core': 5.6.0
       tinybench: 2.9.0
-      vite: '@voidzero-dev/vite-plus-core@0.2.1(@types/node@24.13.2)(jiti@2.6.1)(typescript@6.0.3)(yaml@2.8.3)'
+      vite: '@voidzero-dev/vite-plus-core@0.2.1(@types/node@24.13.2)(jiti@2.7.0)(typescript@6.0.3)(yaml@2.9.0)'
       vitest: 4.1.9(@types/node@24.13.2)(@vitest/browser-preview@4.1.9)(@vitest/coverage-v8@4.1.9)
     transitivePeerDependencies:
       - '@arethetypeswrong/core'
@@ -2062,7 +2062,7 @@ snapshots:
       convert-source-map: 2.0.0
       tinyrainbow: 3.1.0
 
-  '@voidzero-dev/vite-plus-core@0.2.1(@types/node@24.13.2)(jiti@2.6.1)(typescript@6.0.3)(yaml@2.8.3)':
+  '@voidzero-dev/vite-plus-core@0.2.1(@types/node@24.13.2)(jiti@2.7.0)(typescript@6.0.3)(yaml@2.9.0)':
     dependencies:
       '@oxc-project/runtime': 0.136.0
       '@oxc-project/types': 0.136.0
@@ -2071,9 +2071,9 @@ snapshots:
     optionalDependencies:
       '@types/node': 24.13.2
       fsevents: 2.3.3
-      jiti: 2.6.1
+      jiti: 2.7.0
       typescript: 6.0.3
-      yaml: 2.8.3
+      yaml: 2.9.0
 
   '@voidzero-dev/vite-plus-darwin-arm64@0.2.1':
     optional: true
@@ -2138,7 +2138,7 @@ snapshots:
 
   asynckit@0.4.0: {}
 
-  axios@1.17.0:
+  axios@1.18.0:
     dependencies:
       follow-redirects: 1.16.0
       form-data: 4.0.6
@@ -2150,7 +2150,7 @@ snapshots:
 
   balanced-match@4.0.4: {}
 
-  brace-expansion@5.0.5:
+  brace-expansion@5.0.6:
     dependencies:
       balanced-match: 4.0.4
 
@@ -2163,14 +2163,14 @@ snapshots:
       chokidar: 5.0.0
       confbox: 0.2.4
       defu: 6.1.7
-      dotenv: 17.4.1
+      dotenv: 17.4.2
       exsolve: 1.0.8
-      giget: 3.2.0
-      jiti: 2.6.1
+      giget: 3.3.0
+      jiti: 2.7.0
       ohash: 2.0.11
       pathe: 2.0.3
       perfect-debounce: 2.1.0
-      pkg-types: 2.3.0
+      pkg-types: 2.3.1
       rc9: 3.0.1
     optionalDependencies:
       magicast: 0.5.3
@@ -2195,9 +2195,9 @@ snapshots:
       ofetch: 1.5.1
       open: 10.2.0
       pathe: 2.0.3
-      pkg-types: 2.3.0
+      pkg-types: 2.3.1
       scule: 1.3.0
-      semver: 7.7.4
+      semver: 7.8.4
       std-env: 3.10.0
     transitivePeerDependencies:
       - magicast
@@ -2287,7 +2287,7 @@ snapshots:
     dependencies:
       is-obj: 2.0.0
 
-  dotenv@17.4.1: {}
+  dotenv@17.4.2: {}
 
   dunder-proto@1.0.1:
     dependencies:
@@ -2388,7 +2388,7 @@ snapshots:
       dunder-proto: 1.0.1
       es-object-atoms: 1.1.2
 
-  giget@3.2.0: {}
+  giget@3.3.0: {}
 
   git-raw-commits@5.0.1(conventional-commits-parser@6.4.0):
     dependencies:
@@ -2463,6 +2463,8 @@ snapshots:
 
   jiti@2.6.1: {}
 
+  jiti@2.7.0: {}
+
   js-tokens@10.0.0: {}
 
   js-tokens@4.0.0: {}
@@ -2526,7 +2528,7 @@ snapshots:
 
   lines-and-columns@1.2.4: {}
 
-  linkify-it@5.0.0:
+  linkify-it@5.0.1:
     dependencies:
       uc.micro: 2.1.0
 
@@ -2552,11 +2554,11 @@ snapshots:
     dependencies:
       semver: 7.8.4
 
-  markdown-it@14.1.1:
+  markdown-it@14.2.0:
     dependencies:
       argparse: 2.0.1
       entities: 4.5.0
-      linkify-it: 5.0.0
+      linkify-it: 5.0.1
       mdurl: 2.0.0
       punycode.js: 2.3.1
       uc.micro: 2.1.0
@@ -2575,7 +2577,7 @@ snapshots:
 
   minimatch@10.2.5:
     dependencies:
-      brace-expansion: 5.0.5
+      brace-expansion: 5.0.6
 
   mri@1.2.0: {}
 
@@ -2583,7 +2585,7 @@ snapshots:
 
   ms@2.1.3: {}
 
-  nanoid@3.3.12: {}
+  nanoid@3.3.13: {}
 
   node-fetch-native@1.6.7: {}
 
@@ -2595,7 +2597,7 @@ snapshots:
     dependencies:
       destr: 2.0.5
       node-fetch-native: 1.6.7
-      ufo: 1.6.3
+      ufo: 1.6.4
 
   ohash@2.0.11: {}
 
@@ -2606,7 +2608,7 @@ snapshots:
       is-inside-container: 1.0.0
       wsl-utils: 0.1.0
 
-  oxfmt@0.55.0(vite-plus@0.2.1(@types/node@24.13.2)(@vitest/coverage-v8@4.1.9)(jiti@2.6.1)(typescript@6.0.3)(yaml@2.8.3)):
+  oxfmt@0.55.0(vite-plus@0.2.1(@types/node@24.13.2)(@vitest/coverage-v8@4.1.9)(jiti@2.7.0)(typescript@6.0.3)(yaml@2.9.0)):
     dependencies:
       tinypool: 2.1.0
     optionalDependencies:
@@ -2629,7 +2631,7 @@ snapshots:
       '@oxfmt/binding-win32-arm64-msvc': 0.55.0
       '@oxfmt/binding-win32-ia32-msvc': 0.55.0
       '@oxfmt/binding-win32-x64-msvc': 0.55.0
-      vite-plus: 0.2.1(@types/node@24.13.2)(@vitest/coverage-v8@4.1.9)(jiti@2.6.1)(typescript@6.0.3)(yaml@2.8.3)
+      vite-plus: 0.2.1(@types/node@24.13.2)(@vitest/coverage-v8@4.1.9)(jiti@2.7.0)(typescript@6.0.3)(yaml@2.9.0)
 
   oxlint-tsgolint@0.23.0:
     optionalDependencies:
@@ -2640,7 +2642,7 @@ snapshots:
       '@oxlint-tsgolint/win32-arm64': 0.23.0
       '@oxlint-tsgolint/win32-x64': 0.23.0
 
-  oxlint@1.70.0(oxlint-tsgolint@0.23.0)(vite-plus@0.2.1(@types/node@24.13.2)(@vitest/coverage-v8@4.1.9)(jiti@2.6.1)(typescript@6.0.3)(yaml@2.8.3)):
+  oxlint@1.70.0(oxlint-tsgolint@0.23.0)(vite-plus@0.2.1(@types/node@24.13.2)(@vitest/coverage-v8@4.1.9)(jiti@2.7.0)(typescript@6.0.3)(yaml@2.9.0)):
     optionalDependencies:
       '@oxlint/binding-android-arm-eabi': 1.70.0
       '@oxlint/binding-android-arm64': 1.70.0
@@ -2662,7 +2664,7 @@ snapshots:
       '@oxlint/binding-win32-ia32-msvc': 1.70.0
       '@oxlint/binding-win32-x64-msvc': 1.70.0
       oxlint-tsgolint: 0.23.0
-      vite-plus: 0.2.1(@types/node@24.13.2)(@vitest/coverage-v8@4.1.9)(jiti@2.6.1)(typescript@6.0.3)(yaml@2.8.3)
+      vite-plus: 0.2.1(@types/node@24.13.2)(@vitest/coverage-v8@4.1.9)(jiti@2.7.0)(typescript@6.0.3)(yaml@2.9.0)
 
   p-limit@4.0.0:
     dependencies:
@@ -2693,7 +2695,7 @@ snapshots:
 
   picomatch@4.0.4: {}
 
-  pkg-types@2.3.0:
+  pkg-types@2.3.1:
     dependencies:
       confbox: 0.2.4
       exsolve: 1.0.8
@@ -2703,7 +2705,7 @@ snapshots:
 
   postcss@8.5.15:
     dependencies:
-      nanoid: 3.3.12
+      nanoid: 3.3.13
       picocolors: 1.1.1
       source-map-js: 1.2.1
 
@@ -2737,8 +2739,6 @@ snapshots:
   run-applescript@7.1.0: {}
 
   scule@1.3.0: {}
-
-  semver@7.7.4: {}
 
   semver@7.8.4: {}
 
@@ -2793,20 +2793,20 @@ snapshots:
     dependencies:
       '@gerrit0/mini-shiki': 3.23.0
       lunr: 2.3.9
-      markdown-it: 14.1.1
+      markdown-it: 14.2.0
       minimatch: 10.2.5
       typescript: 6.0.3
-      yaml: 2.8.3
+      yaml: 2.9.0
 
   typescript@6.0.3: {}
 
   uc.micro@2.1.0: {}
 
-  ufo@1.6.3: {}
+  ufo@1.6.4: {}
 
   undici-types@7.18.2: {}
 
-  vite-plus@0.2.1(@types/node@24.13.2)(@vitest/coverage-v8@4.1.9)(jiti@2.6.1)(typescript@6.0.3)(yaml@2.8.3):
+  vite-plus@0.2.1(@types/node@24.13.2)(@vitest/coverage-v8@4.1.9)(jiti@2.7.0)(typescript@6.0.3)(yaml@2.9.0):
     dependencies:
       '@oxc-project/types': 0.136.0
       '@oxlint/plugins': 1.68.0
@@ -2819,9 +2819,9 @@ snapshots:
       '@vitest/snapshot': 4.1.9
       '@vitest/spy': 4.1.9
       '@vitest/utils': 4.1.9
-      '@voidzero-dev/vite-plus-core': 0.2.1(@types/node@24.13.2)(jiti@2.6.1)(typescript@6.0.3)(yaml@2.8.3)
-      oxfmt: 0.55.0(vite-plus@0.2.1(@types/node@24.13.2)(@vitest/coverage-v8@4.1.9)(jiti@2.6.1)(typescript@6.0.3)(yaml@2.8.3))
-      oxlint: 1.70.0(oxlint-tsgolint@0.23.0)(vite-plus@0.2.1(@types/node@24.13.2)(@vitest/coverage-v8@4.1.9)(jiti@2.6.1)(typescript@6.0.3)(yaml@2.8.3))
+      '@voidzero-dev/vite-plus-core': 0.2.1(@types/node@24.13.2)(jiti@2.7.0)(typescript@6.0.3)(yaml@2.9.0)
+      oxfmt: 0.55.0(vite-plus@0.2.1(@types/node@24.13.2)(@vitest/coverage-v8@4.1.9)(jiti@2.7.0)(typescript@6.0.3)(yaml@2.9.0))
+      oxlint: 1.70.0(oxlint-tsgolint@0.23.0)(vite-plus@0.2.1(@types/node@24.13.2)(@vitest/coverage-v8@4.1.9)(jiti@2.7.0)(typescript@6.0.3)(yaml@2.9.0))
       oxlint-tsgolint: 0.23.0
       vitest: 4.1.9(@types/node@24.13.2)(@vitest/browser-preview@4.1.9)(@vitest/coverage-v8@4.1.9)
     optionalDependencies:
@@ -2912,7 +2912,7 @@ snapshots:
 
   y18n@5.0.8: {}
 
-  yaml@2.8.3: {}
+  yaml@2.9.0: {}
 
   yargs-parser@22.0.0: {}
 
