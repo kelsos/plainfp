@@ -34,8 +34,9 @@ autoInstallPeers: false
 fetchRetries: 3
 
 # ── vite-plus version alignment ─────────────────────────────────────────
-# vite-plus aliases `vite` and `vitest` to its own builds; this makes
-# every transitive dep resolve to the aliased packages.
+# vite-plus aliases `vite` to its own core build so every transitive dep
+# resolves to it. As of vite-plus 0.2.0 the rebundled `vite-plus-test`
+# package was removed; `vitest` is now the real upstream package, pulled in
+# directly as a dependency of `vite-plus`, so it is no longer overridden.
 overrides:
-  vite: "npm:@voidzero-dev/vite-plus-core@0.1.24"
-  vitest: "npm:@voidzero-dev/vite-plus-test@0.1.24"
+  vite: "npm:@voidzero-dev/vite-plus-core@0.2.1"
